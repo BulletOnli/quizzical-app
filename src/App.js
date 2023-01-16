@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+
+import quizData from './quizData';
+// import Header from './components/Header';
+import Question from './components/Question';
+
 
 function App() {
+  const [data, setData] = useState(quizData)
+
+  useEffect(() => {
+    setData(quizData)
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      {/* <Header /> */}
+      {data.map(datas => (
+        <Question key={datas.id} item={datas}/>
+      ))}
+      <button className='checkBtn'>Check Answers</button>
     </div>
   );
 }
