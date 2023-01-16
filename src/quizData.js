@@ -43,11 +43,11 @@ const quizData = [
     {
         "category": "Food & Drink",
         "id": "622a1c367cc59eab6f950224",
-        "correctAnswer": "Mushrooms ",
+        "correctAnswer": "Mushrooms",
         "choices": [
         "Garlic",
         "Onion",
-        "Mushrooms ",
+        "Mushrooms",
         "Cabbage"
         ],
         "question": "Which Vegetable Can Be Oyster, Chestnut, or Shitaki?",

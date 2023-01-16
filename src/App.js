@@ -2,24 +2,37 @@ import './App.css';
 import { useState, useEffect } from 'react';
 
 import quizData from './quizData';
-// import Header from './components/Header';
+import Header from './components/Header';
 import Question from './components/Question';
 
 
 function App() {
-  const [data, setData] = useState(quizData)
+  const [datas, setDatas] = useState(quizData)
+  const [isGameStarting, setIsGameStarting] = useState(false)
+  const [gameStatus, setGameStatus] = useState(false)
 
   useEffect(() => {
-    setData(quizData)
+    setDatas(quizData)
   }, [])
+
+  function startGame() {
+    setIsGameStarting(true)
+    setGameStatus(true)
+  }
+
+  function endGame() {
+    // setIsGameStarting(false)
+    setGameStatus(false)
+  }
 
   return (
     <div className='app'>
-      {/* <Header /> */}
-      {data.map(datas => (
-        <Question key={datas.id} item={datas}/>
-      ))}
-      <button className='checkBtn'>Check Answers</button>
+      {!isGameStarting ? <Header startGame={startGame}/> :
+        datas.map(data => (
+          <Question key={data.id} item={data} gameStatus={gameStatus} />
+        ))
+      }
+      {isGameStarting ? <button className='checkBtn' onClick={endGame}>Check Answers</button> : ''}
     </div>
   );
 }
