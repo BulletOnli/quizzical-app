@@ -8,31 +8,40 @@ import Question from './components/Question';
 
 function App() {
   const [datas, setDatas] = useState(quizData)
-  const [isGameStarting, setIsGameStarting] = useState(false)
-  const [gameStatus, setGameStatus] = useState(false)
+  // if ready, show the questions else show the header
+  const [isReady, setIsReady] = useState(false)
+  // if !running, show the correct answers
+  const [isRunning, setIsRunning] = useState(false)
+  const [score, setScore] = useState(0)
 
   useEffect(() => {
     setDatas(quizData)
   }, [])
 
   function startGame() {
-    setIsGameStarting(true)
-    setGameStatus(true)
+    setIsReady(true)
+    setIsRunning(true)
   }
 
   function endGame() {
-    // setIsGameStarting(false)
-    setGameStatus(false)
+    setIsReady(false)
+    setScore(0)
   }
+
+  const question = datas.map(data => (
+    <Question key={data.id} item={data} isRunning={isRunning} score={score} setscore={setScore} />
+  ))
 
   return (
     <div className='app'>
-      {!isGameStarting ? <Header startGame={startGame}/> :
-        datas.map(data => (
-          <Question key={data.id} item={data} gameStatus={gameStatus} />
-        ))
+      {!isReady ? <Header startGame={startGame}/> : question}
+      {isReady ? <p className='score'>Score: {!isRunning ? score : 0}/5</p> : ''}
+      {isReady ?
+        <div className='btn-container'>
+          <button className='checkBtn' onClick={() => setIsRunning(false)}>Check Answers</button>
+          <button className='resetBtn' onClick={endGame}>Restart</button>
+        </div> : '' 
       }
-      {isGameStarting ? <button className='checkBtn' onClick={endGame}>Check Answers</button> : ''}
     </div>
   );
 }
