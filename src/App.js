@@ -35,7 +35,9 @@ function App() {
   return (
     <div className='app'>
       {!isReady ? <Header startGame={startGame}/> : question}
-      {isReady ? <p className='score'>Score: {!isRunning ? score : 0}/5</p> : ''}
+
+      {isReady && !isRunning ? <p className='score'>Score: {score}/5</p> : ''}
+
       {isReady ?
         <div className='btn-container'>
           <button className='checkBtn' onClick={() => setIsRunning(false)}>Check Answers</button>
